@@ -1,0 +1,249 @@
+﻿@using TicketingSystem.Web.Employee.Models;
+@model TicketingSystem.Web.Employee.Models.TicketView
+@{
+    ViewBag.Title = Model.Title;
+}
+<link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+<div class="card mt-4">
+    <div class="card-body">
+        <h3 class="card-title text-center">@Model.Title</h3>
+        <div class="justify-content-around text-right">
+            <span id="category" class="badge badge-pill">@Model.Category</span>
+            <span id="status" class="badge">@Model.Status</span>
+            <p class="font-18 font-weight-light">@Model.OpenDate</p>
+            @{
+                if (Model.Status == TicketingSystem.Common.Enums.TicketStatus.Opened || Model.Status == TicketingSystem.Common.Enums.TicketStatus.Inprogress)
+                {
+                    <a class="card-link" style="cursor: pointer">
+                        <a href='#' onclick="PopupForm('@Url.Action("UpdateTicket", "Ticket", new {id = Model.Id}) ');"> Edit </a>
+                        <i class="fa fas fa-pencil-alt"></i>
+                    </a>
+                }
+            }
+
+        </div>
+        <div class="my-1"></div>
+        <span class="card-subtitle">Issue Description</span>
+        <p style="color: #333; font-size: 18px">@Model.Description</p>
+
+        @{
+            if (Model.Attachments != null)
+            {
+                <hr />
+                <span class="card-subtitle">Attachments</span>
+                foreach (string file in Model.Attachments)
+                {
+                    if (file == null)
+                    {
+                        continue;
+                    }
+                    var img = TicketAttachments.GetImage(file);
+                    <div class="text-center" onClick="window.open('@file')"><img src="@img" alt="img describe the problem" width="500px" /></div>
+                }
+            }
+        }
+    </div>
+    <h3 class="card-footer">By: @Model.Client</h3>
+</div>
+<hr />
+@{
+    if (Model.Comments != null)
+    {
+        foreach (ReplyModel reply in Model.Comments)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-subtitle d-flex justify-content-between">
+                        @reply.User.FirstName
+                        <span class="font-12 font-weight-light text-right">
+                            @{
+                                if (reply.Time.ToLongDateString() == DateTime.Now.ToLongDateString())
+                                {
+                                    @reply.Time.ToShortTimeString()
+                                }
+                                else
+                                { @reply.Time.ToShortDateString() }
+                            }
+                        </span>
+                    </div>
+                    <p style="color:#333;font-size:16px">@reply.Content</p>
+                    @{
+                        if (reply.Attachment != null)
+                        {
+
+                            var img = TicketAttachments.GetImage(reply.Attachment);
+                            <img src="@img" alt="reply attachment" width="500px" />
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+}
+
+@{
+    if (Model.Status != TicketingSystem.Common.Enums.TicketStatus.Closed)
+    {
+        <button id="addreply" onclick="" class="btn btn-primary">Add reply</button>
+    }
+    else
+    {
+        <div class="text-center"></div>
+        <h3 class="btn btn-success"><i class="fas fa-check"> </i>
+            This Ticket has been Closed At @Model.ClosedDate by @Model.ClosedBy</h3>
+    }
+}
+<div class="" id="container"></div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<script src="~/Scripts/notify.min.js"></script>
+<script>
+    const arrayColors = { "Opened": "badge-primary", "Closed": "badge-success", "Inprogress": "badge-warning", "UnSolved": "badge-danger" };
+    const productColors = { "Availo": "badge-dark", "Rich": "badge-primary", "ReeDoo": "badge-dark", "Dots": "badge-danger", "OLE5": "badge-warning"}
+    document.querySelector("#status").classList.add(arrayColors['@Model.Status']);
+    document.querySelector("#category").classList.add(productColors['@Model.Category']);
+    const replybtn = document.querySelector("#addreply");
+    replybtn.addEventListener('click',
+            () => {
+                replybtn.style.display = "none";
+                var container = document.querySelector("#container");
+                var markup = `<div class="text-center" id="markup-container"><div style="cursor:pointer;"  class="text-left  text-danger"><a class="text-left" id="close">X</a></div>
+                        <input data-val="true" data-val-number="The field ClientId must be a number." data-val-required="The ClientId field is required." id="TicketId" name="TicketId" type="hidden" value="@Model.Id">
+<div class="form-group"><textarea class="form-control text-box"
+                        id="Content" name="Content"  rows="5"></textarea>
+                        </div>
+                        <input id="File" name="File" multiple type="file" accept="image/png, image/jpeg" />
+                    <span class="field-validation-valid" data-valmsg-for="File" data-valmsg-replace="true"></span>
+                        <button  id="submit" class="btn btn-primary">Add</button>
+                        </div>`;
+
+                container.insertAdjacentHTML("beforeend", markup);
+                const close = document.querySelector("#close");
+                close.addEventListener("click",
+                    function() {
+                        const markupContainer = document.querySelector("#markup-container");
+                        replybtn.style.display = "block";
+                        markupContainer.parentNode.removeChild(markupContainer);
+                    });
+            });
+    $(document).ready(function() {
+        container.addEventListener('click',
+            function(e) {
+                if (e.target && e.target.id == "submit") {
+                    console.log("Clicked");
+                    // Checking whether FormData is available in browser
+                    if (window.FormData !== undefined) {
+                        var fileData = new FormData();
+                        var fileUpload = document.getElementById("File");
+
+                        for (i = 0; i < fileUpload.files.length; i++) {
+                            //Appending each file to FormData object
+                            fileData.append("File", fileUpload.files[i]);
+                        }
+                        // Create FormData object
+
+
+                        // Looping over all files and add it to FormData object
+
+                        // Adding one more key to FormData object
+                        fileData.append('Content', $("#Content").val());
+                        if ($("#Content").val().length <= 3)
+                            return alert("Comment should be more than 3 character!");
+                        fileData.append('TicketId', $("#TicketId").val());
+
+                        $.ajax({
+                            url: '/Ticket/AddComment',
+                            type: "POST",
+                            contentType: false, // Not to set any content header
+                            processData: false, // Not to process data
+                            data: fileData,
+                            success: function(data) {
+                                if (data.success) {
+                                    const markupContainer = document.querySelector("#markup-container");
+                                    replybtn.style.display = "block";
+                                    markupContainer.parentNode.removeChild(markupContainer);
+                                    return window.location.href = '@Url.Content($"~/Ticket/Ticket/{Model.Id}/{Model.Title.GetHashCode()}")';
+                            }
+                            else {
+
+                                $.notify(data.message, {
+                                    globalPosition: 'top center',
+                                    className: "error"
+                                });
+                            }
+                        },
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+            }
+        });
+    });
+
+    var popup;
+    function PopupForm(url) {
+        var formDiv = $('<div/>');
+        $.get(url)
+            .done(function (response) {
+                formDiv.html(response);
+                popup = formDiv.dialog({
+                    autoOpen: true,
+                    resizable: false,
+                    height: 300,
+                    width: 500,
+                    close: function () {
+                        popup.dialog('destroy').remove();
+                    }
+                });
+            });
+    }
+
+
+        function SubmitForm(form) {
+            var formData = new FormData(form);
+            // to validate the form before submiting
+            $.validator.unobtrusive.parse(form);
+            if ($(form).valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: form.action,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        if (data.success) {
+                            popup.dialog('close');
+                            //refresh page
+                           // $('#datatable').DataTable().ajax.reload();
+                            
+                            $.notify(data.message, {
+                                globalPosition: 'top center',
+                                className: "success"
+                            });
+
+                            setTimeout(function () {// wait for 2 secs(2)
+                                location.reload(); // then reload the page.(3)
+                            }, 2000); 
+                        }
+                        else {
+                            $.notify(data.message, {
+                                globalPosition: 'top center',
+                                className: "error"
+                            });
+                        }
+
+                    }
+
+                });
+            }
+            return false
+
+        }
+</script>
+
+

@@ -1,0 +1,54 @@
+﻿@model TicketingSystem.Web.Employee.Models.TicketSaveModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<head>
+    <link href="~/Content/alertify.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+    <link href="~/Content/style.min.css" rel="stylesheet" />
+</head>
+<html>
+<body>
+
+    @using (Html.BeginForm("UpdateTicektStatus", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "return SubmitForm(this)" }))
+    {
+
+        <h1 class="text-dark">Ticket Status</h1>
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2 , class = text-primary" })
+            <div class="col-md-10">
+                @{
+                    var selectList = Enum.GetValues(typeof(TicketingSystem.Common.Enums.TicketStatus))
+                                         .Cast<TicketingSystem.Common.Enums.TicketStatus>()
+                                         .Where(e => e != TicketingSystem.Common.Enums.TicketStatus.Opened &&
+                                             e != TicketingSystem.Common.Enums.TicketStatus.Inprogress)
+
+                                         .Select(e => new SelectListItem
+                                         {
+                                             Value = ((int)e).ToString(),
+                                             Text = e.ToString()
+                                         });
+                }
+                @Html.DropDownListFor(m => m.Status, selectList, "Select", new { @class = "form-control" })
+            </div>
+
+            <div class="col-md-offset-2 col-md-10">
+                <br />
+                <input id="btnSubmit" type="submit" value="Update" class="btn btn-info" />
+            </div>
+        </div>
+
+
+    }
+</body>
+</html>
+
+
+

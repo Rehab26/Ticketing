@@ -1,0 +1,199 @@
+﻿@model TicketingSystem.Web.Employee.Models.UserLoginModel
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href="~/dist/css/style.min.css" rel="stylesheet">
+
+    <style>
+        .select {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative" style="  background: url(../assets/images/big/auth-bg.jpg) no-repeat center center">
+            <div class="col-lg-4 shadow-lg col-md-7 bg-section-v2">
+                <div class="p-3">
+                    <h2 class="mt-3 text-center">Login</h2>
+                    <form class="mt-4">
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "text-dark" })
+                                    @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your phone number" } })
+                                    @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="text-dark"> How would you like to verify your identity?</label>
+                                    <div>
+                                        <label class="text-dark">
+                                            <input type="radio" name="biomentricRadio" value="voice"> Voice
+                                        </label>
+                                        <label class="text-dark">
+                                            <input type="radio" name="biomentricRadio" value="image"> Image
+                                        </label>
+                                        <label class="text-dark">
+                                            <input type="radio" name="biomentricRadio" value="password"> Password
+                                        </label>
+                                    </div>
+
+                                    <div id="audioBtn" class="voice select">
+                                        <button id="recordButton" type="button" class="btn waves-effect waves-light btn-rounded btn-success"><i class="fas fa-microphone"></i> Record </button>
+                                        <button id="stopButton" type="button" class="btn waves-effect waves-light btn-rounded btn-danger"><i class="fas fa-stop-circle"></i> Stop</button>
+                                       <br /> <br />
+                                        <audio id="recordedAudio" controls controlsList="nodownload"></audio>
+                                    </div>
+                                    <div id="cameraBtn" class="image select">
+                                        <button type="button" id="btnSave" onclick="ShowPopUp();" class="btn waves-effect waves-light btn-rounded btn-cyan"><i class="fas fa-camera"></i> Take Photo </button>
+                                    </div>
+                                    <div id="passwordBtn" class="password select">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "text-dark" })
+                                            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", placeholder = "Enter your password" } })
+                                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 text-center">
+                                <input id="btnSubmit" type="submit" value="Login" class="btn btn-block btn-info" />
+                            </div>
+                            <div class="col-lg-12 text-center mt-6">
+                                Don't have an account? @Html.ActionLink("Sign up here", "Register")
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+    </body>
+
+</html>
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input[type="radio"]').click(function () {
+            var inputValue = $(this).attr("value");
+            var targetBox = $("." + inputValue);
+            $(".select").not(targetBox).hide();
+            $(targetBox).show();
+        });
+    });
+</script>
+
+<script>
+    //new audio context to help us record
+    var recordButton = document.getElementById("recordButton");
+    var stopButton = document.getElementById("stopButton");
+    //add events to buttons
+    recordButton.addEventListener("click", startRecording);
+    stopButton.addEventListener("click", stopRecording);
+
+
+
+    var constraints = {
+        audio: true,
+        video: false
+    }
+    recordButton.disabled = false;
+    stopButton.disabled = true;
+
+
+    var mediaRecorder;
+    function startRecording() {
+        stopButton.disabled = false;
+        recordButton.disabled = true;
+        console.log("recording Start");
+
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(stream => {
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+
+                var audioChunks = [];
+                mediaRecorder.addEventListener("dataavailable", event => {
+                    // merge all the chunk in one file
+                    audioChunks.push(event.data);
+                });
+
+                mediaRecorder.addEventListener("stop", () => {
+                    // convert all the chunk in one blob file
+                    var audioBlob = new Blob(audioChunks);
+                    recordedAudio.src = URL.createObjectURL(audioBlob);
+                    recordedAudio.controls = true;
+                    recordedAudio.autoplay = true;
+                    ShowAndSave(audioBlob);
+                });
+            });
+    }
+
+    function stopRecording() {
+        console.log("recording Stopped");
+        stopButton.disabled = true;
+        recordButton.disabled = false;
+        mediaRecorder.stop();
+    }
+
+
+    function ShowAndSave(blob) {
+
+        var url = URL.createObjectURL(blob);
+        var au = document.createElement('audio');
+        var li = document.createElement('li');
+        var link = document.createElement('a');
+        au.audioBtn = true;
+        au.src = url;
+        link.href = url;
+        link.download = new Date().toISOString() + '.wav';
+        link.innerHTML = link.download;
+        li.appendChild(au);
+        li.appendChild(link);
+
+        var formData = new FormData();
+        formData.append("fileType", blob.type);
+        formData.append("data", blob);
+        //send file to the c# method
+
+        $.ajax({
+            type: "POST",
+            url: "/Account/SaveAudio",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function () {
+                alert("Recording completed successfully.");
+            },
+            error: function () {
+                alert("Error in recording.");
+            }
+        });
+    }
+
+</script>
+
+<script type="text/javascript">
+
+    function ShowPopUp() {
+        window.open('/Photo/TakePhoto/', "wndPopUp", 'width=720,height=400,left=100,top=100,resizable=no');
+    }
+
+</script>

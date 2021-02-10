@@ -1,0 +1,75 @@
+﻿@model TicketingSystem.Web.Client.Models.TicketSave
+
+@{
+    ViewBag.Title = "Post new Ticket";
+}
+
+<h3 class="page-title text-truncate text-dark font-weight-medium mb-1">@ViewBag.Title</h3>
+@using (Html.BeginForm("Post", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Get help from support system</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClientId)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control"  , placeholder = "Enter the issue title" , required = "required"} })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-7">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", rows = 10  , placeholder = "Your issue description is here" , required = "required" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.EnumDropDownListFor(model => model.Category)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Priority, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @Html.EnumDropDownListFor(model => model.Priority)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Attachments, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-offset-2 col-md-7 ">
+                <input name="Files" id="Files" type="file" onblur="vali_type()" multiple="multiple" />
+                <small id="fileHelp" class="form-text text-muted">Optional | you can select multiple images</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-7 text-right">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+<script>
+    function vali_type() {
+        var id_value = document.getElementById('up').value;
+
+        if (id_value != '') {
+            var valid_extensions = /(.jpg|.jpeg|.gif|.png)$/i;
+            if (valid_extensions.test(id_value)) {
+                alert('OK');
+            }
+            else {
+                alert('Invalid File')
+            }
+        }
+    }
+</script>
+}
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+

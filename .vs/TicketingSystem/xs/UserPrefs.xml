@@ -1,0 +1,44 @@
+﻿<Properties StartupConfiguration="{4DF1D58C-2FF8-47A8-8B60-DFE401A82BAB}|">
+  <MonoDevelop.Ide.ItemProperties.TicketingSystem.Web.Client PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TicketingSystem.Common/Models/UserModels/ClientLogin.cs">
+    <Files>
+      <File FileName="TicketingSystem.Api/Controllers/AccountController.cs" Line="22" Column="59" />
+      <File FileName="TicketingSystem.Common/Models/UserModels/ViewUser.cs" Line="5" Column="2" />
+      <File FileName="TicketingSystem.Business/Managers/AccountManager.cs" Line="298" Column="43" />
+      <File FileName="TicketingSystem.Data/Entites/User.cs" Line="11" Column="18" />
+      <File FileName="TicketingSystem.Data/TicketingStystemContext.cs" Line="25" Column="35" />
+      <File FileName="TicketingSystem.Business/Managers/TicketManager.cs" Line="109" Column="49" />
+      <File FileName="TicketingSystem.Common/Models/UserModels/ClientLogin.cs" Line="13" Column="43" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="TicketingSystem" expanded="True">
+            <Node name="TicketingSystem.Api" expanded="True">
+              <Node name="Controllers" expanded="True" />
+            </Node>
+            <Node name="TicketingSystem.Business" expanded="True">
+              <Node name="Managers" expanded="True" />
+            </Node>
+            <Node name="TicketingSystem.Common" expanded="True">
+              <Node name="Models" expanded="True">
+                <Node name="UserModels" expanded="True">
+                  <Node name="ClientLogin.cs" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+            <Node name="TicketingSystem.Data" expanded="True">
+              <Node name="Entites" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

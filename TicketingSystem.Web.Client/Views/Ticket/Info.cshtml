@@ -1,0 +1,23 @@
+﻿@model TicketingSystem.Web.Client.Models.ClientView
+
+    <div class="justify-content-center" style="display:flex;">
+        <img src="~/assets/images/profile.png" width="200px" height="200px" style="border-radius:50%;" />
+        <div class="card-body">
+            <div class="card-title text-left" style="font-weight:bold">@Model.FirstName @Model.LastName</div>
+            <div class="d-flex justify-content-left">
+                Email <p class="ml-5">@Model.Email</p>
+            </div>
+            <div class="d-flex justify-content-left">
+                Phone Number <p class="ml-5">@Model.PhoneNumber</p>
+            </div>
+            <div class="d-flex justify-content-left">
+                Birthday <p class="ml-5">@Model.DateOfBirth</p>
+            </div>
+            <div class="d-flex justify-content-left">
+                Country <p class="ml-5">@Model.Country</p>
+            </div>
+        </div>
+    </div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+

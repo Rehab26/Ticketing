@@ -1,0 +1,45 @@
+﻿@model  TicketingSystem.Web.Client.Models.ClientTicketView
+@{
+    ViewBag.Title = "Profile | HelpTick ";
+}
+@Html.Partial("Info" , Model.Client)
+<hr/>
+
+<div class="">
+    @{
+        if (ViewBag.Message != null)
+        {
+            <h3>@ViewBag.Message ....</h3>
+            <div class="d-block">
+                @Html.ActionLink("Create Ticket", "Post", null, new { @class = "sidebar-link" })
+            </div>
+
+        }
+        else
+        {
+            <h4 style="color:#000;">Most Recent Tickets</h4>
+            foreach (TicketingSystem.Web.Client.Models.TicketSave ticket in Model.Tickets)
+            {
+                <div class="card d-flex flex-column w-100">
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between card-title">
+                            <h3> @Html.ActionLink(ticket.Title, "Ticket", "Ticket", new { id = ticket.Id, title = ticket.Title.GetHashCode() }, null)</h3>
+                            <div class="justify-content-around">
+                                <span class="badge badge-pill badge-primary ">@ticket.Category</span>
+                                <span class="badge badge-success">@ticket.Status</span>
+                                <p class="font-18 font-weight-light">@ticket.OpenDate.ToShortDateString()</p>
+                            </div>
+
+                        </div>
+                        <div class="flex-grow-1" style="width:100%;">
+                            @ticket.Description.Substring(0, ticket.Description.Length / 4)
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+</div>
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>

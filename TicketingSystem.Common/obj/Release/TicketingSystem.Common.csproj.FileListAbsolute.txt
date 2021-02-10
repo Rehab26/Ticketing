@@ -1,0 +1,17 @@
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\TicketingSystem.Common.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\TicketingSystem.Common.pdb
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\log4net.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.Logging.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.Tokens.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\log4net.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.JsonWebTokens.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.Logging.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\Microsoft.IdentityModel.Tokens.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\obj\Release\TicketingSystem.Common.csprojAssemblyReference.cache
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\obj\Release\TicketingSystem.Common.csproj.CoreCompileInputs.cache
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\obj\Release\TicketingSystem.Common.csproj.CopyComplete
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\obj\Release\TicketingSystem.Common.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Common\obj\Release\TicketingSystem.Common.pdb

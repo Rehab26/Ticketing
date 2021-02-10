@@ -1,0 +1,15 @@
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\TicketingSystem.Logging.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\TicketingSystem.Logging.pdb
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\log4net.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\Newtonsoft.Json.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\System.Net.Http.Formatting.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\System.Web.Http.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\log4net.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\Newtonsoft.Json.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\System.Net.Http.Formatting.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\bin\Release\System.Web.Http.xml
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\obj\Release\TicketingSystem.Logging.csprojAssemblyReference.cache
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\obj\Release\TicketingSystem.Logging.csproj.CoreCompileInputs.cache
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\obj\Release\TicketingSystem.Logging.csproj.CopyComplete
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\obj\Release\TicketingSystem.Logging.dll
+C:\Users\Rehab\source\repos\Project_Hassan_Training2\TicketingSystem\TicketingSystem.Logging\obj\Release\TicketingSystem.Logging.pdb
